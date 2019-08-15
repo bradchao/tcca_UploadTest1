@@ -10,12 +10,16 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import java.io.File;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private File sdroot;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,21 @@ public class MainActivity extends AppCompatActivity {
 
         sdroot = Environment.getExternalStorageDirectory();
 
+        webView = findViewById(R.id.webview);
+        initWebView();
     }
+
+    private void initWebView(){
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        WebViewClient client = new WebViewClient();
+        webView.setWebViewClient(client);
+
+        webView.loadUrl("https://www.bradchao.com/upload.php");
+
+    }
+
+
 
 
     public void test1(View view) {
