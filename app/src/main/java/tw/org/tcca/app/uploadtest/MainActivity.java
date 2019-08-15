@@ -3,12 +3,15 @@ package tw.org.tcca.app.uploadtest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
             Log.v("brad", "OK");
 
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            //Uri photoUri = FileProvider.getUriForFile(MainActivity.this, "", new File(sdroot,"filename"));
+            //intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            startActivityForResult(intent, 124);
+
+
             return true; //super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
         }
     };
@@ -40,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
+                Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    new String[]{Manifest.permission.CAMERA},
                     123);
         }
 
