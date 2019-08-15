@@ -6,10 +6,13 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -20,6 +23,16 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private File sdroot;
     private WebView webView;
+    private WebChromeClient webChromeClient = new WebChromeClient(){
+
+        @Override
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+
+            Log.v("brad", "OK");
+
+            return true; //super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
         settings.setJavaScriptEnabled(true);
         WebViewClient client = new WebViewClient();
         webView.setWebViewClient(client);
+
+        webView.setWebChromeClient(webChromeClient);
 
         webView.loadUrl("https://www.bradchao.com/upload.php");
 
