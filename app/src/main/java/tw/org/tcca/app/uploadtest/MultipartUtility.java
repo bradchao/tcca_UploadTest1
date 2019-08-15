@@ -130,7 +130,7 @@ public class MultipartUtility {
 
         // checks server's status code first
         int status = httpConn.getResponseCode();
-        if (status == 201) {
+        if (status == 201 || status == 200) {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     httpConn.getInputStream()));
             String line = null;
